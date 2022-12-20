@@ -1,6 +1,7 @@
 package com.sportradar.scoreboard;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class LiveFootballWorldCupScoreBoard {
 
@@ -11,6 +12,10 @@ public class LiveFootballWorldCupScoreBoard {
     }
 
     public ArrayList<Game> getSummary() {
+        repository.sort(Comparator
+                .comparing(Game::getTotalScore)
+                .thenComparing(Game::getTimestamp)
+                .reversed());
         return repository;
     }
 
