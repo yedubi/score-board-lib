@@ -5,8 +5,8 @@ package com.sportradar.scoreboard;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class LiveFootballWorldCupScoreBoardTest {
 
@@ -47,6 +47,23 @@ class LiveFootballWorldCupScoreBoardTest {
         scoreBoard.finishGame(game);
         assertTrue(scoreBoard.getSummary().isEmpty());
     }
+
+    @Test
+    public void updateScoreNotStartedGameTest() {
+        LiveFootballWorldCupScoreBoard scoreBoard = new LiveFootballWorldCupScoreBoard();
+        Game game = new Game("A", "B");
+        assertThrows(FootballGameNotStartedException.class, () -> scoreBoard.updateScore(game, new int[]{1, 1}));
+    }
+
+    @Test
+    public void finishNotStartedGameTest() {
+        LiveFootballWorldCupScoreBoard scoreBoard = new LiveFootballWorldCupScoreBoard();
+        Game game = new Game("A", "B");
+        assertThrows(FootballGameNotStartedException.class, () -> scoreBoard.finishGame(game));
+    }
+
+
+
 
 
 
