@@ -16,6 +16,7 @@ public interface FootballScoreBoardRepository {
     /**
      * Add new football game in repository.
      *
+     * @param game Game with updated score.
      * @return {@code boolean}
      */
     boolean add(Game game);
