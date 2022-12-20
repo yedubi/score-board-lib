@@ -26,4 +26,10 @@ public class LiveFootballWorldCupScoreBoard {
         }
     }
 
+    public void finishGame(Game game) {
+        if (repository.contains(game)) {
+            repository.remove(game);
+        }
+    }
+
 }
