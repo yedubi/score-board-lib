@@ -1,12 +1,23 @@
 package com.sportradar.scoreboard;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class LiveFootballWorldCupScoreBoard {
 
-    public Collection<Game> getSummary() {
-        return new ArrayList<>();
+    private ArrayList<Game> repository;
+
+    public LiveFootballWorldCupScoreBoard() {
+        repository = new ArrayList<>();
     }
 
+
+    public ArrayList<Game> getSummary() {
+        return repository;
+    }
+
+    public Game startGame(String homeTeam, String awayTeam) {
+        Game game = new Game(homeTeam, awayTeam);
+        repository.add(game);
+        return game;
+    }
 }
