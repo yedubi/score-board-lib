@@ -1,22 +1,24 @@
 package com.sportradar.scoreboard;
 
-import java.util.ArrayList;
+import com.sportradar.scoreboard.repository.FootballScoreBoardRepository;
+
 import java.util.Comparator;
+import java.util.List;
 
 public class LiveFootballWorldCupScoreBoard {
 
-    private ArrayList<Game> repository;
+    private final FootballScoreBoardRepository repository;
 
-    public LiveFootballWorldCupScoreBoard() {
-        repository = new ArrayList<>();
+    public LiveFootballWorldCupScoreBoard(FootballScoreBoardRepository scoreBoardRepository) {
+        this.repository = scoreBoardRepository;
     }
 
-    public ArrayList<Game> getSummary() {
-        repository.sort(Comparator
+    public List<Game> getSummary() {
+        repository.getAll().sort(Comparator
                 .comparing(Game::getTotalScore)
                 .thenComparing(Game::getTimestamp)
                 .reversed());
-        return repository;
+        return repository.getAll();
     }
 
     public Game startGame(String homeTeam, String awayTeam) {
@@ -26,17 +28,16 @@ public class LiveFootballWorldCupScoreBoard {
     }
 
     public void updateScore(Game game, int[] score) throws FootballGameNotStartedException {
-        if (!repository.contains(game)) {
+        if (!repository.update(game)) {
             throw new FootballGameNotStartedException();
         }
         game.updateScore(score);
     }
 
     public void finishGame(Game game) throws FootballGameNotStartedException {
-        if (!repository.contains(game)) {
+        if (!repository.remove(game)) {
             throw new FootballGameNotStartedException();
         }
-        repository.remove(game);
     }
 
 }

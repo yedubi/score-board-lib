@@ -3,9 +3,12 @@
  */
 package com.sportradar.scoreboard;
 
+import com.sportradar.scoreboard.repository.FootballScoreBoardRepository;
+import com.sportradar.scoreboard.repository.impl.InMemoryScoreBoardRepository;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -82,14 +85,13 @@ class LiveFootballWorldCupScoreBoardTest {
         expectedList.add(game4);
         expectedList.add(game5);
 
-        ArrayList<Game> actualList = scoreBoard.getSummary();
+        List<Game> actualList = scoreBoard.getSummary();
         assertEquals(actualList, expectedList);
     }
 
     private static LiveFootballWorldCupScoreBoard buildLiveFootballWorldCupScoreBoard() {
         FootballScoreBoardRepository scoreBoardRepository = new InMemoryScoreBoardRepository();
-        LiveFootballWorldCupScoreBoard scoreBoard = new LiveFootballWorldCupScoreBoard(scoreBoardRepository);
-        return scoreBoard;
+        return new LiveFootballWorldCupScoreBoard(scoreBoardRepository);
     }
 
     private Game startGameAndUpdateScore(LiveFootballWorldCupScoreBoard liveFootballWorldCupScoreBoard, String homeTeamName, String awayTeamName, int[] score) throws Exception {
