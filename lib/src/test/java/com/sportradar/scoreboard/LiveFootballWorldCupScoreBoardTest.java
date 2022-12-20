@@ -14,4 +14,11 @@ class LiveFootballWorldCupScoreBoardTest {
         LiveFootballWorldCupScoreBoard scoreBoard = new LiveFootballWorldCupScoreBoard();
         assertTrue(scoreBoard.getSummary().isEmpty());
     }
+
+    @Test
+    public void startNewGameTest() {
+        LiveFootballWorldCupScoreBoard scoreBoard = new LiveFootballWorldCupScoreBoard();
+        Game game = scoreBoard.startGame("Mexico", "Canada");
+        assertTrue(scoreBoard.getSummary().contains(game));
+    }
 }
