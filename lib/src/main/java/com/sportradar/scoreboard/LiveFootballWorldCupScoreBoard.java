@@ -21,7 +21,7 @@ public class LiveFootballWorldCupScoreBoard {
     }
 
     public void updateScore(Game game, int[] score) {
-        if (!repository.contains(game)) {
+        if (repository.contains(game)) {
             game.updateScore(score);
         }
     }
