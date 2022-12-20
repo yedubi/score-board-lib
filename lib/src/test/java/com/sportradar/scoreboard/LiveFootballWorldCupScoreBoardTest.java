@@ -31,5 +31,14 @@ class LiveFootballWorldCupScoreBoardTest {
         assertArrayEquals(initialScore, game.getScore());
     }
 
+    @Test
+    public void updateGameScoreTest() {
+        LiveFootballWorldCupScoreBoard scoreBoard = new LiveFootballWorldCupScoreBoard();
+        Game game = scoreBoard.startGame("Mexico", "Canada");
+        int[] newScore = {1, 2};
+        scoreBoard.updateScore(game, newScore);
+        assertArrayEquals(scoreBoard.getSummary().get(0).getScore(), newScore);
+    }
+
 
 }
