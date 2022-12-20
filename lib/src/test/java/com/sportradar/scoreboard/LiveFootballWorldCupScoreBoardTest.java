@@ -5,6 +5,7 @@ package com.sportradar.scoreboard;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class LiveFootballWorldCupScoreBoardTest {
@@ -21,4 +22,14 @@ class LiveFootballWorldCupScoreBoardTest {
         Game game = scoreBoard.startGame("Mexico", "Canada");
         assertTrue(scoreBoard.getSummary().contains(game));
     }
+
+    @Test
+    public void initialScoreTest() {
+        LiveFootballWorldCupScoreBoard scoreBoard = new LiveFootballWorldCupScoreBoard();
+        Game game = scoreBoard.startGame("Mexico", "Canada");
+        int[] initialScore = {0, 0};
+        assertArrayEquals(initialScore, game.getScore());
+    }
+
+
 }
