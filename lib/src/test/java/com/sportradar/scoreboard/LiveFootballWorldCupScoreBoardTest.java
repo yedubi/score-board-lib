@@ -13,20 +13,20 @@ class LiveFootballWorldCupScoreBoardTest {
 
     @Test
     public void emptyScoreBordTest() {
-        LiveFootballWorldCupScoreBoard scoreBoard = getLiveFootballWorldCupScoreBoard();
+        LiveFootballWorldCupScoreBoard scoreBoard = buildLiveFootballWorldCupScoreBoard();
         assertTrue(scoreBoard.getSummary().isEmpty());
     }
 
     @Test
     public void startNewGameTest() {
-        LiveFootballWorldCupScoreBoard scoreBoard = getLiveFootballWorldCupScoreBoard();
+        LiveFootballWorldCupScoreBoard scoreBoard = buildLiveFootballWorldCupScoreBoard();
         Game game = scoreBoard.startGame("Mexico", "Canada");
         assertTrue(scoreBoard.getSummary().contains(game));
     }
 
     @Test
     public void initialScoreTest() {
-        LiveFootballWorldCupScoreBoard scoreBoard = getLiveFootballWorldCupScoreBoard();
+        LiveFootballWorldCupScoreBoard scoreBoard = buildLiveFootballWorldCupScoreBoard();
         Game game = scoreBoard.startGame("Mexico", "Canada");
         int[] initialScore = {0, 0};
         assertArrayEquals(initialScore, game.getScore());
@@ -34,7 +34,7 @@ class LiveFootballWorldCupScoreBoardTest {
 
     @Test
     public void updateGameScoreTest() throws FootballGameNotStartedException {
-        LiveFootballWorldCupScoreBoard scoreBoard = getLiveFootballWorldCupScoreBoard();
+        LiveFootballWorldCupScoreBoard scoreBoard = buildLiveFootballWorldCupScoreBoard();
         Game game = scoreBoard.startGame("Mexico", "Canada");
         int[] newScore = {1, 2};
         scoreBoard.updateScore(game, newScore);
@@ -43,7 +43,7 @@ class LiveFootballWorldCupScoreBoardTest {
 
     @Test
     public void finishGameTest() throws FootballGameNotStartedException {
-        LiveFootballWorldCupScoreBoard scoreBoard = getLiveFootballWorldCupScoreBoard();
+        LiveFootballWorldCupScoreBoard scoreBoard = buildLiveFootballWorldCupScoreBoard();
         Game game = scoreBoard.startGame("Mexico", "Canada");
         scoreBoard.finishGame(game);
         assertTrue(scoreBoard.getSummary().isEmpty());
@@ -51,26 +51,21 @@ class LiveFootballWorldCupScoreBoardTest {
 
     @Test
     public void updateScoreNotStartedGameTest() {
-        LiveFootballWorldCupScoreBoard scoreBoard = getLiveFootballWorldCupScoreBoard();
+        LiveFootballWorldCupScoreBoard scoreBoard = buildLiveFootballWorldCupScoreBoard();
         Game game = new Game("A", "B");
         assertThrows(FootballGameNotStartedException.class, () -> scoreBoard.updateScore(game, new int[]{1, 1}));
     }
 
     @Test
     public void finishNotStartedGameTest() {
-        LiveFootballWorldCupScoreBoard scoreBoard = getLiveFootballWorldCupScoreBoard();
+        LiveFootballWorldCupScoreBoard scoreBoard = buildLiveFootballWorldCupScoreBoard();
         Game game = new Game("A", "B");
         assertThrows(FootballGameNotStartedException.class, () -> scoreBoard.finishGame(game));
     }
 
-    private static LiveFootballWorldCupScoreBoard getLiveFootballWorldCupScoreBoard() {
-        LiveFootballWorldCupScoreBoard scoreBoard = new LiveFootballWorldCupScoreBoard();
-        return scoreBoard;
-    }
-
     @Test
     public void gameSummaryOrderedByTotalScoreThenByMostRecentlyStartedTest() throws Exception {
-        LiveFootballWorldCupScoreBoard scoreBoard = getLiveFootballWorldCupScoreBoard();
+        LiveFootballWorldCupScoreBoard scoreBoard = buildLiveFootballWorldCupScoreBoard();
         ArrayList<Game> expectedList = new ArrayList<>();
 
         //Start games
@@ -89,6 +84,12 @@ class LiveFootballWorldCupScoreBoardTest {
 
         ArrayList<Game> actualList = scoreBoard.getSummary();
         assertEquals(actualList, expectedList);
+    }
+
+    private static LiveFootballWorldCupScoreBoard buildLiveFootballWorldCupScoreBoard() {
+        FootballScoreBoardRepository scoreBoardRepository = new InMemoryScoreBoardRepository();
+        LiveFootballWorldCupScoreBoard scoreBoard = new LiveFootballWorldCupScoreBoard(scoreBoardRepository);
+        return scoreBoard;
     }
 
     private Game startGameAndUpdateScore(LiveFootballWorldCupScoreBoard liveFootballWorldCupScoreBoard, String homeTeamName, String awayTeamName, int[] score) throws Exception {
