@@ -20,16 +20,18 @@ public class LiveFootballWorldCupScoreBoard {
         return game;
     }
 
-    public void updateScore(Game game, int[] score) {
-        if (repository.contains(game)) {
-            game.updateScore(score);
+    public void updateScore(Game game, int[] score) throws FootballGameNotStartedException {
+        if (!repository.contains(game)) {
+            throw new FootballGameNotStartedException();
         }
+        game.updateScore(score);
     }
 
-    public void finishGame(Game game) {
-        if (repository.contains(game)) {
-            repository.remove(game);
+    public void finishGame(Game game) throws FootballGameNotStartedException {
+        if (!repository.contains(game)) {
+            throw new FootballGameNotStartedException();
         }
+        repository.remove(game);
     }
 
 }

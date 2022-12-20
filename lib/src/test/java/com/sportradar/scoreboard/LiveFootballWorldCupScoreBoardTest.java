@@ -6,34 +6,33 @@ package com.sportradar.scoreboard;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class LiveFootballWorldCupScoreBoardTest {
 
     @Test
     public void emptyScoreBordTest() {
-        LiveFootballWorldCupScoreBoard scoreBoard = new LiveFootballWorldCupScoreBoard();
+        LiveFootballWorldCupScoreBoard scoreBoard = getLiveFootballWorldCupScoreBoard();
         assertTrue(scoreBoard.getSummary().isEmpty());
     }
 
     @Test
     public void startNewGameTest() {
-        LiveFootballWorldCupScoreBoard scoreBoard = new LiveFootballWorldCupScoreBoard();
+        LiveFootballWorldCupScoreBoard scoreBoard = getLiveFootballWorldCupScoreBoard();
         Game game = scoreBoard.startGame("Mexico", "Canada");
         assertTrue(scoreBoard.getSummary().contains(game));
     }
 
     @Test
     public void initialScoreTest() {
-        LiveFootballWorldCupScoreBoard scoreBoard = new LiveFootballWorldCupScoreBoard();
+        LiveFootballWorldCupScoreBoard scoreBoard = getLiveFootballWorldCupScoreBoard();
         Game game = scoreBoard.startGame("Mexico", "Canada");
         int[] initialScore = {0, 0};
         assertArrayEquals(initialScore, game.getScore());
     }
 
     @Test
-    public void updateGameScoreTest() {
-        LiveFootballWorldCupScoreBoard scoreBoard = new LiveFootballWorldCupScoreBoard();
+    public void updateGameScoreTest() throws FootballGameNotStartedException {
+        LiveFootballWorldCupScoreBoard scoreBoard = getLiveFootballWorldCupScoreBoard();
         Game game = scoreBoard.startGame("Mexico", "Canada");
         int[] newScore = {1, 2};
         scoreBoard.updateScore(game, newScore);
@@ -42,7 +41,7 @@ class LiveFootballWorldCupScoreBoardTest {
 
     @Test
     public void finishGameTest() throws FootballGameNotStartedException {
-        LiveFootballWorldCupScoreBoard scoreBoard = new LiveFootballWorldCupScoreBoard();
+        LiveFootballWorldCupScoreBoard scoreBoard = getLiveFootballWorldCupScoreBoard();
         Game game = scoreBoard.startGame("Mexico", "Canada");
         scoreBoard.finishGame(game);
         assertTrue(scoreBoard.getSummary().isEmpty());
@@ -50,21 +49,22 @@ class LiveFootballWorldCupScoreBoardTest {
 
     @Test
     public void updateScoreNotStartedGameTest() {
-        LiveFootballWorldCupScoreBoard scoreBoard = new LiveFootballWorldCupScoreBoard();
+        LiveFootballWorldCupScoreBoard scoreBoard = getLiveFootballWorldCupScoreBoard();
         Game game = new Game("A", "B");
         assertThrows(FootballGameNotStartedException.class, () -> scoreBoard.updateScore(game, new int[]{1, 1}));
     }
 
     @Test
     public void finishNotStartedGameTest() {
-        LiveFootballWorldCupScoreBoard scoreBoard = new LiveFootballWorldCupScoreBoard();
+        LiveFootballWorldCupScoreBoard scoreBoard = getLiveFootballWorldCupScoreBoard();
         Game game = new Game("A", "B");
         assertThrows(FootballGameNotStartedException.class, () -> scoreBoard.finishGame(game));
     }
 
-
-
-
+    private static LiveFootballWorldCupScoreBoard getLiveFootballWorldCupScoreBoard() {
+        LiveFootballWorldCupScoreBoard scoreBoard = new LiveFootballWorldCupScoreBoard();
+        return scoreBoard;
+    }
 
 
 }
