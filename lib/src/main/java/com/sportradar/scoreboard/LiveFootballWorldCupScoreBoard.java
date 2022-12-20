@@ -10,7 +10,6 @@ public class LiveFootballWorldCupScoreBoard {
         repository = new ArrayList<>();
     }
 
-
     public ArrayList<Game> getSummary() {
         return repository;
     }
@@ -20,4 +19,11 @@ public class LiveFootballWorldCupScoreBoard {
         repository.add(game);
         return game;
     }
+
+    public void updateScore(Game game, int[] score) {
+        if (!repository.contains(game)) {
+            game.updateScore(score);
+        }
+    }
+
 }
