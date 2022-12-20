@@ -1,4 +1,4 @@
-package com.sportradar.scoreboard;
+package com.sportradar.scoreboard.model;
 
 import java.util.Objects;
 import java.util.stream.IntStream;

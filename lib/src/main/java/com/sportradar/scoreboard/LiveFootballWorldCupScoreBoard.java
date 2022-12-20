@@ -1,5 +1,6 @@
 package com.sportradar.scoreboard;
 
+import com.sportradar.scoreboard.model.Game;
 import com.sportradar.scoreboard.repository.FootballScoreBoardRepository;
 
 import java.util.Comparator;

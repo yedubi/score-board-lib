@@ -3,6 +3,7 @@
  */
 package com.sportradar.scoreboard;
 
+import com.sportradar.scoreboard.model.Game;
 import com.sportradar.scoreboard.repository.FootballScoreBoardRepository;
 import com.sportradar.scoreboard.repository.impl.InMemoryScoreBoardRepository;
 import org.junit.jupiter.api.Test;
