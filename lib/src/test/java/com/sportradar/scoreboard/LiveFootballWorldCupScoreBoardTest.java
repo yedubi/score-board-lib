@@ -5,6 +5,8 @@ package com.sportradar.scoreboard;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class LiveFootballWorldCupScoreBoardTest {
@@ -64,6 +66,35 @@ class LiveFootballWorldCupScoreBoardTest {
     private static LiveFootballWorldCupScoreBoard getLiveFootballWorldCupScoreBoard() {
         LiveFootballWorldCupScoreBoard scoreBoard = new LiveFootballWorldCupScoreBoard();
         return scoreBoard;
+    }
+
+    @Test
+    public void gameSummaryOrderedByTotalScoreThenByMostRecentlyStartedTest() throws Exception {
+        LiveFootballWorldCupScoreBoard scoreBoard = getLiveFootballWorldCupScoreBoard();
+        ArrayList<Game> expectedList = new ArrayList<>();
+
+        //Start games
+        Game game3 = startGameAndUpdateScore(scoreBoard, "Mexico", "Canada", new int[]{0, 5});
+        Game game2 = startGameAndUpdateScore(scoreBoard, "Spain", "Brazil", new int[]{10, 2});
+        Game game5 = startGameAndUpdateScore(scoreBoard, "Germany", "France", new int[]{2, 2});
+        Game game1 = startGameAndUpdateScore(scoreBoard, "Uruguay", "Italy", new int[]{6, 6});
+        Game game4 = startGameAndUpdateScore(scoreBoard, "Argentina", "Australia", new int[]{3, 1});
+
+        //Add started games in expected order after sorting in scoreBoard
+        expectedList.add(game1);
+        expectedList.add(game2);
+        expectedList.add(game3);
+        expectedList.add(game4);
+        expectedList.add(game5);
+
+        ArrayList<Game> actualList = scoreBoard.getSummary();
+        assertEquals(actualList, expectedList);
+    }
+
+    private Game startGameAndUpdateScore(LiveFootballWorldCupScoreBoard liveFootballWorldCupScoreBoard, String homeTeamName, String awayTeamName, int[] score) throws Exception {
+        Game game = liveFootballWorldCupScoreBoard.startGame(homeTeamName, awayTeamName);
+        liveFootballWorldCupScoreBoard.updateScore(game, score);
+        return game;
     }
 
 
