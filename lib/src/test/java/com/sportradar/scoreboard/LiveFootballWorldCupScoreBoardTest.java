@@ -40,5 +40,14 @@ class LiveFootballWorldCupScoreBoardTest {
         assertArrayEquals(scoreBoard.getSummary().get(0).getScore(), newScore);
     }
 
+    @Test
+    public void finishGameTest() throws FootballGameNotStartedException {
+        LiveFootballWorldCupScoreBoard scoreBoard = new LiveFootballWorldCupScoreBoard();
+        Game game = scoreBoard.startGame("Mexico", "Canada");
+        scoreBoard.finishGame(game);
+        assertTrue(scoreBoard.getSummary().isEmpty());
+    }
+
+
 
 }
