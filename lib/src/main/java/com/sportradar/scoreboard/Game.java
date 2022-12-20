@@ -6,10 +6,16 @@ public class Game {
 
     private final String homeTeam;
     private final String awayTeam;
+    private int[] score;
 
     public Game(String homeTeam, String awayTeam) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
+        this.score = new int[]{0, 0};
+    }
+
+    public int[] getScore() {
+        return score;
     }
 
     @Override
