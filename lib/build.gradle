@@ -10,6 +10,8 @@ plugins {
     id 'java-library'
 }
 
+version = '0.0.1'
+
 repositories {
     mavenCentral()
 }
@@ -20,4 +22,8 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+tasks.named('jar') {
+    archiveBaseName = 'live-football-score-board'
 }
