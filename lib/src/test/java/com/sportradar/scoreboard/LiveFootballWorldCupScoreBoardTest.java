@@ -3,6 +3,7 @@
  */
 package com.sportradar.scoreboard;
 
+import com.sportradar.scoreboard.impl.LiveFootballWorldCupScoreBoard;
 import com.sportradar.scoreboard.model.Game;
 import com.sportradar.scoreboard.repository.FootballScoreBoardRepository;
 import com.sportradar.scoreboard.repository.impl.InMemoryScoreBoardRepository;
@@ -17,7 +18,7 @@ class LiveFootballWorldCupScoreBoardTest {
 
     @Test
     public void emptyScoreBordTest() {
-        LiveFootballWorldCupScoreBoard scoreBoard = buildLiveFootballWorldCupScoreBoard();
+        FootballScoreBoard scoreBoard = buildLiveFootballWorldCupScoreBoard();
         assertTrue(scoreBoard.getSummary().isEmpty());
     }
 
