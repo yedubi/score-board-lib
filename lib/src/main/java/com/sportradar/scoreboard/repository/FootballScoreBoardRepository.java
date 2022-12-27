@@ -29,6 +29,8 @@ public interface FootballScoreBoardRepository {
      */
     boolean update(Game game);
 
+    boolean contains(Game game);
+
     /**
      * Remove football from repository.
      *

@@ -1,5 +1,6 @@
 package com.sportradar.scoreboard.model;
 
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
@@ -7,9 +8,8 @@ public class Game {
 
     private final String homeTeam;
     private final String awayTeam;
-    private int[] score;
+    private final int[] score;
     private final Long timestamp;
-
 
     public Game(String homeTeam, String awayTeam) {
         this.homeTeam = homeTeam;
@@ -30,22 +30,21 @@ public class Game {
         return timestamp;
     }
 
-    public void updateScore(int[] score) {
-        this.score = score;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Game game = (Game) o;
         return homeTeam.equals(game.homeTeam)
-                && awayTeam.equals(game.awayTeam);
+                && awayTeam.equals(game.awayTeam)
+                && timestamp.equals(game.timestamp)
+                && Arrays.equals(score, game.score);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(homeTeam, awayTeam);
+        int result = Objects.hash(homeTeam, awayTeam, timestamp);
+        return 31 * result + Objects.hashCode(score);
     }
 
 }

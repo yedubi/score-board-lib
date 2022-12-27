@@ -38,6 +38,11 @@ public class InMemoryScoreBoardRepository implements FootballScoreBoardRepositor
     }
 
     @Override
+    public boolean contains(Game game) {
+        return gameStoreList.contains(game);
+    }
+
+    @Override
     public boolean remove(Game game) {
         return gameStoreList.remove(game);
     }

@@ -17,10 +17,11 @@ public abstract class AbstractFootballScoreBoard implements FootballScoreBoard {
     }
 
     public void updateScore(Game game, int[] score) throws FootballGameNotStartedException {
-        game.updateScore(score);
-        if (!repository.update(game)) {
+        if (!repository.contains(game)) {
             throw new FootballGameNotStartedException();
         }
+
+
     }
 
     public Game startGame(String homeTeam, String awayTeam) {
